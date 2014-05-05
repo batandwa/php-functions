@@ -1,8 +1,8 @@
 <?php
 /**
- * array_merge_recursive does indeed merge arrays, but it converts values with duplicate
+ * <code>array_merge_recursive<code> does indeed merge arrays, but it converts values with duplicate
  * keys to arrays rather than overwriting the value in the first array with the duplicate
- * value in the second array, as array_merge does. I.e., with array_merge_recursive,
+ * value in the second array, as array_merge does. i.e., with array_merge_recursive,
  * this happens (documented behavior):
  *
  * array_merge_recursive(array('key' => 'org value'), array('key' => 'new value'));
@@ -28,17 +28,25 @@ function array_merge_recursive_distinct ( array &$array1, array &$array2 )
 {
   $merged = $array1;
 
-  foreach ( $array2 as $key => &$value )
+  // $keys = array_merge(array_keys($array1), array_keys($array2));
+  $keys = array_merge(array_keys($array1) + array_keys($array2));
+  // dsm($array1);
+  // dsm($array2);
+
+  foreach ( $keys as $key)
   {
-    if ( is_array ( $value ) && isset ( $merged [$key] ) && is_array ( $merged [$key] ) )
+
+    if ( isset ( $array2[$key] ) && is_array ( $array2[$key] ) && isset ( $merged [$key] ) && is_array ( $merged [$key] ) )
     {
-      $merged [$key] = array_merge_recursive_distinct ( $merged [$key], $value );
+      // dsm('Merging...');
+      $merged [$key] = array_merge_recursive_distinct ( $merged [$key], $array2[$key] );
     }
-    else
+    else if(isset($array2 [$key]))
     {
-      $merged [$key] = $value;
+      // dsm('Over writtng... ' . $key);
+      $merged [$key] = $array2[$key];
     }
   }
-
+// dsm($merged);
   return $merged;
 }
