@@ -10,6 +10,6 @@
  *
  * @return  bool            Whether the input is an integer or not.
  */
-function crabtree_core_is_int($val){
+function is_int($val){
   return (filter_var($val, FILTER_VALIDATE_INT) !== false && strpos($val, '-') === false);
 }
