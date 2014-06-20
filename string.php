@@ -18,6 +18,7 @@ function is_int($val){
  * Checks if the passed string is a JSON string.
  *
  * @author  h0mayun
+ * @author  Batandwa Colani
  * @date    2014-02-08
  * @version 1
  *
@@ -25,5 +26,6 @@ function is_int($val){
  * @return  boolean         Whether  the string is JSON or not.
  */
 function is_json($str) {
-  return is_array(json_decode($str,true));
+
+  return is_string($str) && is_array(json_decode($str,true));
 }
