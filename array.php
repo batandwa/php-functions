@@ -50,3 +50,21 @@ function array_merge_recursive_distinct ( array &$array1, array &$array2 )
 // dsm($merged);
   return $merged;
 }
+
+/**
+ * Check if an array only consistis of values that might be deemed blank,
+ * as per the <code>empty()</code> function. ie. 0, FALSE, "", NULL, etc...
+ *
+ * @param  array  $array The array to be tested
+ *
+ * @return boolean       Whether or not the array only contains empty items
+ */
+function array_of_empties($array) {
+  foreach ($array as $value) {
+    if(!empty($value)) {
+      return FALSE;
+    }
+  }
+
+  return TRUE;
+}
